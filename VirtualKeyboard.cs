@@ -6,22 +6,27 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    /// <summary>Enables applications to intercept keystrokes</summary>
     public static class VirtualKeyboard
     {
-        private static int hKeyboardHook = 0;
-        private static NativeMethods.HookProc KeyboardHookProcedure;
+        private static int hHook = 0;
+        private static NativeMethods.HookProc hookProc;
 
+        /// <summary>Fires when a key is depressed on the keyboard</summary>
         public static event KeyEventHandler KeyDown;
+        /// <summary>Fires when a key is pressed and released on the keyboard</summary>
         public static event KeyPressEventHandler KeyPress;
+        /// <summary>Fires when a key is released on the keyboard</summary>
         public static event KeyEventHandler KeyUp;
 
+        /// <summary>Starts intercepting keystrokes</summary>
         public static void StartInterceptor()
         {
-            if (hKeyboardHook == 0)
+            if (hHook == 0)
             {
-                KeyboardHookProcedure = new NativeMethods.HookProc(KeyboardHookProc);
-                hKeyboardHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_KEYBOARD_LL, KeyboardHookProcedure, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
-                if (hKeyboardHook == 0)
+                hookProc = new NativeMethods.HookProc(KeyboardHookProc);
+                hHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_KEYBOARD_LL, hookProc, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
+                if (hHook == 0)
                 {
                     int errorCode = Marshal.GetLastWin32Error();
                     StopInterceptor();
@@ -30,12 +35,13 @@
             }
         }
 
+        /// <summary>Stops intercepting keystrokes</summary>
         public static void StopInterceptor()
         {
-            if (hKeyboardHook != 0)
+            if (hHook != 0)
             {
-                int result = NativeMethods.UnhookWindowsHookEx(hKeyboardHook);
-                hKeyboardHook = 0;
+                int result = NativeMethods.UnhookWindowsHookEx(hHook);
+                hHook = 0;
                 if (result == 0)
                 {
                     int errorCode = Marshal.GetLastWin32Error();
@@ -44,6 +50,11 @@
             }
         }
 
+        /// <summary>Called by the Win32 functions when a keyboard event occurs</summary>
+        /// <param name="nCode">A code the hook procedure uses to determine how to process the message. If code is less than zero, the hook procedure must pass the message to the CallNextHookEx function without further processing and should return the value returned by CallNextHookEx.</param>
+        /// <param name="wParam">The virtual-key code of the key that generated the keystroke message.</param>
+        /// <param name="lParam">The repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag.</param>
+        /// <returns>1 if the event was handled, otherwise the return value of CallNextHookEx.</returns>
         private static int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
             bool handled = false;
@@ -90,7 +101,7 @@
                 }
             }
 
-            return handled ? 1 : NativeMethods.CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+            return handled ? 1 : NativeMethods.CallNextHookEx(hHook, nCode, wParam, lParam);
         }
     }
 }
