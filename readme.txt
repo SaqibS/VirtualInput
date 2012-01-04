@@ -6,5 +6,4 @@ While it is possible to think of various malicious uses, such as keylogging, thi
 
 At present the library focuses on intercepting user input - a future extension would be to also simulate input - such as simulating keypresses, mouse movement, and clicking the mouse.
 
-Some further testing needs to be done before proclaiming this 1.0, and at that time a Nuget package will be created.
-
+You can add the library to your project using Nuget - see http://nuget.org for more information.
