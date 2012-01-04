@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://opensource.org/licenses/mit-license</licenseUrl>
+    <projectUrl>http://github.com/SaqibS/VirtualInput</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>First version</releaseNotes>
+    <copyright>Copyright 2011 Saqib Shaikh</copyright>
+    <tags>keyboard mouse hook intercept interceptor</tags>
+  </metadata>
+  <files>
+    <file src="readme.txt" />
+    <file src="license.txt" />
+  </files>
+</package>
