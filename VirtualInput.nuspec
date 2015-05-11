@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -10,8 +10,8 @@
     <projectUrl>http://github.com/SaqibS/VirtualInput</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>First version</releaseNotes>
-    <copyright>Copyright 2011 Saqib Shaikh</copyright>
+    <releaseNotes>Fixed a bug where intercepting wouldn't work on X86 versions of Windows 7/8.</releaseNotes>
+    <copyright>Copyright 2011-2015, Saqib Shaikh</copyright>
     <tags>keyboard mouse hook intercept interceptor</tags>
   </metadata>
   <files>
