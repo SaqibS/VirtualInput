@@ -61,6 +61,9 @@
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         internal static extern short GetKeyState(int vKey);
 
+        [DllImport("kernel32.dll")]
+        internal static extern IntPtr GetModuleHandle(string name);
+
         internal const int WH_MOUSE_LL = 14;
         internal const int WH_KEYBOARD_LL = 13;
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
@@ -25,7 +26,8 @@
             if (hHook == 0)
             {
                 hookProc = new NativeMethods.HookProc(KeyboardHookProc);
-                hHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_KEYBOARD_LL, hookProc, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
+                IntPtr moduleHandle = NativeMethods.GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName);
+                hHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_KEYBOARD_LL, hookProc, moduleHandle, 0);
                 if (hHook == 0)
                 {
                     int errorCode = Marshal.GetLastWin32Error();
